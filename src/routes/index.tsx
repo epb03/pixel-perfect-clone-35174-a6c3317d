@@ -4,6 +4,7 @@ import {
   Star, ChevronLeft, ChevronRight, Menu, X, Facebook, Instagram, Twitter, Youtube, Phone, Mail, Shield,
 } from "lucide-react";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 import heroImg from "@/assets/hero-livingroom.jpg";
 import rugModern from "@/assets/rug-modern.jpg";
