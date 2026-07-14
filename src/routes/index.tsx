@@ -69,6 +69,30 @@ const featured = [
 
 const brands = ["Louis De Poortere", "Asiatic London", "think rugs", "Origins Rugs", "Flair Rugs", "Mastercraft"];
 
+const navLinks = [
+  { label: "Living Room", href: "#" },
+  { label: "Bedroom", href: "#" },
+  { label: "Dining Room", href: "#" },
+  { label: "Hallway", href: "#" },
+  { label: "Kitchen", href: "#" },
+  { label: "Outdoor", href: "#" },
+  {
+    label: "Rugs by Style",
+    href: "#",
+    children: styles.map((s) => ({ label: s.name, href: "#" })),
+  },
+  {
+    label: "Rugs by Colour",
+    href: "#",
+    children: colours.map((c) => ({ label: c.name, href: "#" })),
+  },
+  {
+    label: "Brands",
+    href: "#",
+    children: brands.map((b) => ({ label: b, href: "#" })),
+  },
+];
+
 const reviews = [
   { name: "Emma L.", text: "Beautiful rug, excellent quality and fast delivery. It looks perfect in our living room!" },
   { name: "James T.", text: "The Rug Shop UK has the best selection and prices. Highly recommended!" },
