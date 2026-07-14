@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Truck, Tag, RotateCcw, CreditCard, Headphones, Search, Heart, User, ShoppingBag,
-  Star, ChevronLeft, ChevronRight, Menu, X, Facebook, Instagram, Twitter, Youtube, Phone, Mail, Shield,
+  Star, ChevronLeft, ChevronRight, ChevronDown, Menu, X, Facebook, Instagram, Twitter, Youtube, Phone, Mail, Shield,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -22,7 +22,6 @@ import roomOutdoor from "@/assets/room-outdoor.jpg";
 
 export const Route = createFileRoute("/")({ component: Index });
 
-const navLinks = ["Living Room", "Bedroom", "Dining Room", "Hallway", "Kitchen", "Outdoor", "Rugs by Style", "Rugs by Colour", "Brands"];
 
 const rooms = [
   { name: "Living Room", img: roomLiving },
@@ -70,6 +69,30 @@ const featured = [
 
 const brands = ["Louis De Poortere", "Asiatic London", "think rugs", "Origins Rugs", "Flair Rugs", "Mastercraft"];
 
+const navLinks = [
+  { label: "Living Room", href: "#" },
+  { label: "Bedroom", href: "#" },
+  { label: "Dining Room", href: "#" },
+  { label: "Hallway", href: "#" },
+  { label: "Kitchen", href: "#" },
+  { label: "Outdoor", href: "#" },
+  {
+    label: "Rugs by Style",
+    href: "#",
+    children: styles.map((s) => ({ label: s.name, href: "#" })),
+  },
+  {
+    label: "Rugs by Colour",
+    href: "#",
+    children: colours.map((c) => ({ label: c.name, href: "#" })),
+  },
+  {
+    label: "Brands",
+    href: "#",
+    children: brands.map((b) => ({ label: b, href: "#" })),
+  },
+];
+
 const reviews = [
   { name: "Emma L.", text: "Beautiful rug, excellent quality and fast delivery. It looks perfect in our living room!" },
   { name: "James T.", text: "The Rug Shop UK has the best selection and prices. Highly recommended!" },
@@ -97,6 +120,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
+
+  const toggleDropdown = (label: string) => {
+    setOpenDropdowns((prev) => ({ ...prev, [label]: !prev[label] }));
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -150,7 +178,23 @@ function Index() {
         <nav className="hidden md:block border-t">
           <ul className="mx-auto max-w-7xl px-4 flex items-center justify-center gap-8 text-[13px] font-medium tracking-wide py-3">
             {navLinks.map((l) => (
-              <li key={l}><a href="#" className="hover:text-[var(--gold)] transition-colors uppercase">{l}</a></li>
+              <li key={l.label} className="relative group">
+                <a href={l.href} className="flex items-center gap-1 hover:text-[var(--gold)] transition-colors uppercase">
+                  {l.label}
+                  {l.children && <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />}
+                </a>
+                {l.children && (
+                  <div className="absolute left-0 top-full mt-0 pt-2 hidden group-hover:block z-50">
+                    <div className="bg-background border shadow-lg rounded-sm min-w-[180px] py-2">
+                      {l.children.map((c) => (
+                        <a key={c.label} href={c.href} className="block px-4 py-2 text-xs uppercase tracking-wide hover:bg-muted hover:text-[var(--gold)] transition-colors">
+                          {c.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </li>
             ))}
             <li><a href="#" className="text-[var(--sale)] font-semibold uppercase">Sale</a></li>
           </ul>
@@ -163,10 +207,31 @@ function Index() {
             <span className="font-serif text-lg">Menu</span>
             <button onClick={() => setMenuOpen(false)} aria-label="Close menu"><X /></button>
           </div>
-          <ul className="p-4 space-y-3 text-sm">
-            {[...navLinks, "Sale"].map((l) => (
-              <li key={l}><a href="#" className="block py-2 border-b">{l}</a></li>
+          <ul className="p-4 text-sm">
+            {navLinks.map((l) => (
+              <li key={l.label} className="border-b last:border-b-0">
+                <div className="flex items-center justify-between py-3">
+                  <a href={l.href} className="uppercase">{l.label}</a>
+                  {l.children && (
+                    <button onClick={() => toggleDropdown(l.label)} aria-label={`Toggle ${l.label} menu`}>
+                      <ChevronDown size={16} className={`transition-transform ${openDropdowns[l.label] ? "rotate-180" : ""}`} />
+                    </button>
+                  )}
+                </div>
+                {l.children && openDropdowns[l.label] && (
+                  <ul className="pb-3 pl-3 space-y-2">
+                    {l.children.map((c) => (
+                      <li key={c.label}>
+                        <a href={c.href} className="block py-1 text-xs uppercase text-muted-foreground hover:text-[var(--gold)]">{c.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
             ))}
+            <li className="border-b">
+              <a href="#" className="block py-3 text-[var(--sale)] font-semibold uppercase">Sale</a>
+            </li>
           </ul>
         </div>
       )}
