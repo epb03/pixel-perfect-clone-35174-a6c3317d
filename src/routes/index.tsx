@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Truck, Tag, RotateCcw, CreditCard, Headphones, Search, Heart, User, ShoppingBag,
-  Star, ChevronLeft, ChevronRight, Menu, X, Facebook, Instagram, Twitter, Youtube, Phone, Mail, Shield,
+  Star, ChevronLeft, ChevronRight, ChevronDown, Menu, X, Facebook, Instagram, Twitter, Youtube, Phone, Mail, Shield,
 } from "lucide-react";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 
 import heroImg from "@/assets/hero-livingroom.jpg";
 import rugModern from "@/assets/rug-modern.jpg";
