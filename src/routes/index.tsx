@@ -22,29 +22,6 @@ import roomOutdoor from "@/assets/room-outdoor.jpg";
 
 export const Route = createFileRoute("/")({ component: Index });
 
-const navLinks = [
-  { label: "Living Room", href: "#" },
-  { label: "Bedroom", href: "#" },
-  { label: "Dining Room", href: "#" },
-  { label: "Hallway", href: "#" },
-  { label: "Kitchen", href: "#" },
-  { label: "Outdoor", href: "#" },
-  {
-    label: "Rugs by Style",
-    href: "#",
-    children: styles.map((s) => ({ label: s.name, href: "#" })),
-  },
-  {
-    label: "Rugs by Colour",
-    href: "#",
-    children: colours.map((c) => ({ label: c.name, href: "#" })),
-  },
-  {
-    label: "Brands",
-    href: "#",
-    children: brands.map((b) => ({ label: b, href: "#" })),
-  },
-];
 
 const rooms = [
   { name: "Living Room", img: roomLiving },
